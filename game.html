@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disney World Trivia Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #1e90ff;
+        }
+        #game-container {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #4682b4;
+        }
+        .hidden {
+            display: none;
+        }
+        #question {
+            margin-bottom: 20px;
+        }
+        #remaining-questions {
+            font-weight: bold;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Disney World Trivia Game</h1>
+    <div id="game-container">
+        <p id="question">Is Cinderella's Castle located in Disney World?</p>
+        <button onclick="answer(true)">True</button>
+        <button onclick="answer(false)">False</button>
+        <p id="remaining-questions">Questions remaining: 10</p>
+        <p id="result" class="hidden"></p>
+    </div>
+
+    <script>
+        let questionsLeft = 10;
+        let currentQuestionIndex = 0;
+        let correctAnswers = 0;
+
+        // List of trivia questions and their correct answers (True or False)
+        const triviaQuestions = [
+            { question: "Is Cinderella's Castle located in Disney World?", answer: true },
+            { question: "Epcot Center was the first Disney park to open in Florida.", answer: false },
+            { question: "The Magic Kingdom has a ride called Pirates of the Caribbean.", answer: true },
+            { question: "There is a ride in Disney World called 'The Twilight Zone Tower of Terror'.", answer: true },
+            { question: "The Disney World Resort is located in California.", answer: false },
+            { question: "The first Disney World park to open was Magic Kingdom.", answer: true },
+            { question: "Disney World is located in Orlando, Florida.", answer: true },
+            { question: "The Animal Kingdom is a park in Disney World.", answer: true },
+            { question: "Disney World has a park called 'Universal Studios'.", answer: false },
+            { question: "There is a parade that happens every day in Disney World.", answer: true }
+        ];
+
+        // Start the game
+        function startGame() {
+            correctAnswers = 0;
+            currentQuestionIndex = 0;
+            questionsLeft = 10;
+            document.getElementById("remaining-questions").innerText = `Questions remaining: ${questionsLeft}`;
+            document.getElementById("result").classList.add('hidden');
+            nextQuestion();
+        }
+
+        // Display the next question
+        function nextQuestion() {
+            if (questionsLeft <= 0) {
+                endGame();
+                return;
+            }
+
+            const currentQuestion = triviaQuestions[currentQuestionIndex];
+            document.getElementById("question").innerText = currentQuestion.question;
+            document.getElementById("remaining-questions").innerText = `Questions remaining: ${questionsLeft}`;
+        }
+
+        // Process the player's answer
+        function answer(playerAnswer) {
+            const currentQuestion = triviaQuestions[currentQuestionIndex];
+            if (playerAnswer === currentQuestion.answer) {
+                correctAnswers++;
+            }
+            questionsLeft--;
+            currentQuestionIndex++;
+
+            if (questionsLeft > 0) {
+                nextQuestion();
+            } else {
+                endGame();
+            }
+        }
+
+        // End the game and show the result
+        function endGame() {
+            document.getElementById("question").innerText = `Game Over! You answered ${correctAnswers} out of 10 correctly.`;
+            document.getElementById("remaining-questions").classList.add('hidden');
+            document.getElementById("result").innerText = `You got ${correctAnswers} correct answers!`;
+            document.getElementById("result").classList.remove('hidden');
+        }
+
+        // Start the game when the page loads
+        startGame();
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,18 @@
+li {
+   font-size: 18px;
+}
+.bold {
+    font-weight: bold;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.homebg {
+    background-color: lightpink;
+}
+.font{
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+}
